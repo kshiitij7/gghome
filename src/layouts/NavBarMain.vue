@@ -50,7 +50,7 @@
     <v-img :src="nmcg"  max-width="130" class="image-hover"></v-img>
     <v-divider :thickness="1" color="black" vertical></v-divider>
     <v-spacer></v-spacer>
-    
+
 </v-app-bar>
 </template>
 

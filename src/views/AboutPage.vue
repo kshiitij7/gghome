@@ -3,32 +3,31 @@
 
     <h1 class="heading">About Geo-Ganga</h1>
 
-    <v-row style="margin-left: 40px; margin-right: 40px; margin-top: 20px;">   
+    <v-row style="margin-left: 40px; margin-right: 40px; margin-top: 20px;">
         <v-col>
-        <p style="font-size: 18px; text-align: justify; font-family: 'Poppins', sans-serif; font-weight: 300;">The Geo-Ganga portal is an innovative digital platform
-            to support the initiatives for the rejuvenation and conservation of the Ganga River and its basin.
-            This portal provides geospatial data, satellite imagery, and mapping tools that are essential
-            for effective monitoring, management, and decision-making related to the Ganga's ecosystem.
-            The platform integrates data from various sources, including remote sensing technologies,
-            GIS (Geographic Information Systems), and field surveys, offering a comprehensive view of the river and its surrounding areas.
-            Geo-Ganga aims to aid in the planning, implementation, and monitoring of the Namami Gange Programme,
-            a flagship initiative to clean and protect the Ganga River. It provides crucial insights for assessing water quality,
-            identifying pollution hotspots, tracking the progress of river rejuvenation projects, and ensuring sustainable development along the river.
-            Through the portal, users can access various layers of information, including land use patterns,
-            pollution sources, and infrastructure data. It also helps stakeholders, including government agencies,
-            researchers, and environmental organizations, to collaborate effectively
-            in Ganga conservation efforts. In sum, Geo-Ganga plays a vital role in enhancing
-            the efficiency and transparency of efforts to restore and protect one of India’s most iconic rivers.</p>
+            <p style="font-size: 18px; text-align: justify; font-family: 'Poppins', sans-serif; font-weight: 300;">The Geo-Ganga portal is an innovative digital platform
+                to support the initiatives for the rejuvenation and conservation of the Ganga River and its basin.
+                This portal provides geospatial data, satellite imagery, and mapping tools that are essential
+                for effective monitoring, management, and decision-making related to the Ganga's ecosystem.
+                The platform integrates data from various sources, including remote sensing technologies,
+                GIS (Geographic Information Systems), and field surveys, offering a comprehensive view of the river and its surrounding areas.
+                Geo-Ganga aims to aid in the planning, implementation, and monitoring of the Namami Gange Programme,
+                a flagship initiative to clean and protect the Ganga River. It provides crucial insights for assessing water quality,
+                identifying pollution hotspots, tracking the progress of river rejuvenation projects, and ensuring sustainable development along the river.
+                Through the portal, users can access various layers of information, including land use patterns,
+                pollution sources, and infrastructure data. It also helps stakeholders, including government agencies,
+                researchers, and environmental organizations, to collaborate effectively
+                in Ganga conservation efforts. In sum, Geo-Ganga plays a vital role in enhancing
+                the efficiency and transparency of efforts to restore and protect one of India’s most iconic rivers.</p>
         </v-col>
         <v-col style="max-width: 450px; max-height: 450px;">
-            <v-img :src="river" style=" width: 100%; height: auto;"></v-img>
+            <v-img :src="river" class="aboutimg"></v-img>
         </v-col>
     </v-row>
 
-
     <v-row style="margin-left: 40px; margin-top: 80px; margin-right: 40px;">
         <v-col style="max-width: 600px; max-height: 600px;">
-            <v-img :src="basinimg" class="aboutimg"></v-img>
+            <v-img :src="basinimg" class="aboutimg" @click="openLightbox(0)"></v-img>
         </v-col>
         <v-col>
             <div class="about-text">
@@ -56,7 +55,7 @@
 
     <v-row style="margin-left: 40px; margin-top: 80px; margin-right: 40px;">
         <v-col style="max-width: 600px; max-height: 600px;">
-            <v-img :src="qualityimg" class="aboutimg"></v-img>
+            <v-img :src="qualityimg" class="aboutimg" @click="openLightbox(1)"></v-img>
         </v-col>
         <v-col>
             <div class="about-text">
@@ -84,6 +83,22 @@
             </div>
         </v-col>
     </v-row>
+    <!-- Lightbox -->
+    <v-dialog v-model="lightbox" fullscreen hide-overlay>
+        <div class="lightbox-backgrounds">
+            <v-spacer></v-spacer>
+            <v-btn icon class="lightbox-close" @click="closeLightbox">
+                <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <v-window v-model="currentIndex" show-arrows>
+                <v-window-item v-for="(image, index) in images" :key="index" :value="index">
+                    <div class="lightbox-content">
+                        <v-img :src="image" class="lightbox-image"></v-img>
+                    </div>
+                </v-window-item>
+            </v-window>
+        </div>
+    </v-dialog>
 </v-main>
 </template>
 
@@ -95,7 +110,20 @@ export default {
             basinimg: require('@/assets/img/about_img.png'),
             qualityimg: require('@/assets/img/waterquality.png'),
             river: require('@/assets/img/portal.png'),
+
+            lightbox: false,
+            currentIndex: 0,
+            images: [require('@/assets/img/about_img.png'), require('@/assets/img/waterquality.png'), ],
         };
+    },
+    methods: {
+        openLightbox(index) {
+            this.currentIndex = index;
+            this.lightbox = true;
+        },
+        closeLightbox() {
+            this.lightbox = false;
+        },
     },
 };
 </script>
@@ -120,5 +148,44 @@ export default {
     font-size: 1.1rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
+}
+
+.v-img {
+    cursor: pointer;
+}
+
+.aboutimg:hover {
+    transform: scale(1.1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.lightbox-backgrounds {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.lightbox-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.lightbox-image {
+    max-width: 80vw;
+    max-height: 80vh;
+
 }
 </style>

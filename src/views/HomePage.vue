@@ -4,6 +4,8 @@
         <v-img :src="logo" class="logo-image"></v-img>
         <v-img :src="nmcg" class="nmcg-image"></v-img>
     </div>
+
+    <v-footer color="black"></v-footer>
 </v-main>
 </template> 
   

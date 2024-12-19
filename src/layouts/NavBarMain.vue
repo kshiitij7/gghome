@@ -3,7 +3,7 @@
     
     <v-row class="fill-height" align="center" justify="space-between"></v-row>
     <v-divider :thickness="1" color="black" vertical></v-divider>
-    <v-img :src="logo" class="logo-image" max-width="150"></v-img>
+    <v-img :src="iirslogo"  max-width="130" max-height="80" class="image-hover"></v-img>
     <v-divider :thickness="1" color="black" vertical></v-divider>
     
     <router-link to="/">
@@ -47,14 +47,13 @@
     </v-btn>
     <v-divider :thickness="1" color="black" vertical></v-divider>
 
-    <v-img :src="nmcg"  max-width="150" />
+    <v-img :src="nmcg"  max-width="130" class="image-hover"></v-img>
     <v-divider :thickness="1" color="black" vertical></v-divider>
     <v-spacer></v-spacer>
+    
 </v-app-bar>
 </template>
 
-  
-  
 <script>
 export default {
     name: 'NavBarMain',
@@ -62,7 +61,7 @@ export default {
     data() {
         return {
             nmcg:require('@/assets/img/nmcgGif.gif'),     
-            logo: require('@/assets/img/ganga_logo.png'),
+            iirslogo: require('@/assets/img/iirs.png'),
         }
     },
 
@@ -72,17 +71,20 @@ export default {
         }
     }
 }
-</script>
-  
+</script> 
   
 <style scoped>
-
-
 .active {
     height: 60px; 
     background-color: rgba(172, 9, 9, 0.2);  
     color: rgb(172, 9, 9);
     font-size: 18px;
-    transition: 0.2s;
+    transition: 0.4s ease-in-out;  
+}
+.image-hover {
+  transition: 0.3s ease; 
+}
+.image-hover:hover {
+  transform: scale(1.2); 
 }
 </style>
